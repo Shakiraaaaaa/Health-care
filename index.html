@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthy Child Care Facilities Self-Assessment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c7be5;
+            --secondary-color: #6e84a3;
+            --success-color: #00d97e;
+            --warning-color: #f6c343;
+            --danger-color: #e63757;
+            --light-color: #f9fafd;
+            --dark-color: #12263f;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+            scroll-behavior: smooth;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #2c7be5 0%, #1a4d8c 100%);
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .hero-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-subtitle {
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .assessment-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .assessment-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 1.25rem 1.5rem;
+        }
+        
+        .section-anchor {
+            position: relative;
+            top: -80px;
+            visibility: hidden;
+        }
+        
+        .question-item {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .question-item:last-child {
+            border-bottom: none;
+        }
+        
+        .question-text {
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .response-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .btn-response {
+            flex: 1;
+            border: 1px solid #dee2e6;
+            background-color: white;
+            color: var(--secondary-color);
+            font-weight: 500;
+            padding: 0.5rem;
+        }
+        
+        .btn-response:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .btn-response.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .btn-yes.active {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+        
+        .btn-no.active {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+        
+        .btn-na.active {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .resources-container {
+            background-color: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .resource-item {
+            margin-bottom: 0.75rem;
+        }
+        
+        .resource-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .resource-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .progress-container {
+            position: sticky;
+            top: 20px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .progress-stats {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+        
+        .category-icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+            color: var(--primary-color);
+        }
+    
+        /* Video Section Styling */
+        .video-series-section {
+            padding: 4rem 0;
+            background: var(--light-color);
+        }
+    
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+    
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+    
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            background: #000;
+        }
+    
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    
+        .video-info {
+            padding: 1.5rem;
+        }
+    
+        .video-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.25rem;
+        }
+    
+        .video-description {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+    
+        .video-progress {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+    
+        .video-progress .time {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+    
+        .video-progress .progress-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+    
+        .video-progress .progress-bar::after {
+            content: '';
+            display: block;
+            width: 65%;
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+    
+        .series-footer {
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 3rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+    
+        .brand-name {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+    
+        .thank-you {
+            color: var(--secondary-color);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+    
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 3rem 0;
+                border-radius: 0;
+            }
+            
+            .hero-title {
+                font-size: 1.8rem;
+            }
+            
+            .progress-container {
+                position: static;
+                margin-bottom: 2rem;
+            }
+    
+            .video-series-section {
+                padding: 2rem 0;
+            }
+    
+            .video-card {
+                margin-bottom: 1.5rem;
+            }
+    
+            .video-info {
+                padding: 1.25rem;
+            }
+    
+            .video-info h3 {
+                font-size: 1.1rem;
+            }
+    
+            .video-description {
+                font-size: 0.875rem;
+            }
+    
+            .brand-name {
+                font-size: 1.25rem;
+            }
+    
+            .thank-you {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-child me-2"></i>Healthy Child Care
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#assessment">Self-Assessment</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" role="button" data-bs-toggle="dropdown">
+                            Resources
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#outdoor-air">Outdoor Air Quality</a></li>
+                            <li><a class="dropdown-item" href="#indoor-air">Indoor Air Quality</a></li>
+                            <li><a class="dropdown-item" href="#pest-management">Pest Management</a></li>
+                            <li><a class="dropdown-item" href="#chemical-safety">Chemical Safety</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">Facility Self-Assessment</h1>
+            <p class="hero-subtitle">For a Safe and Healthy Child Care Environment</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button onclick="window.open('https://pdfhost.io/v/5ErxGmw4Ws_asthma_qrg;', '_blank');" class="btn btn-light btn-lg px-4">
+    <i class="fas fa-file-pdf me-2"></i>Download PDF
+</button>
+
+                
+
+                <button onclick="document.getElementById('video').scrollIntoView({ behavior: 'smooth' });"  class="btn btn-outline-light btn-lg px-4">
+                    <i class="fas fa-play me-2"></i>Video Guide
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container" id="assessment">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Introduction -->
+                <div class="assessment-card mb-4">
+                    <div class="card-body">
+                        <p>You work hard every day to ensure that children can grow, learn and play in a safe and healthy environment. This self-assessment will support your awareness of environmental exposures and provide resources to address your concerns.</p>
+                        
+                        <div class="alert alert-info mt-3">
+                            <h5 class="alert-heading">How to Use This Assessment</h5>
+                            <p>There are three possible responses to each question:</p>
+                            <ul>
+                                <li><strong>Yes</strong> = All is well, no action required at this time. Please reassess next time you perform the self-assessment.</li>
+                                <li><strong>No</strong> = There is an opportunity to make improvements. Resources provided can help you determine what next steps you take.</li>
+                                <li><strong>N/A</strong> = Not applicable to your facility. Continue to the next question.</li>
+                            </ul>
+                            <hr>
+                            <p class="mb-0">It is recommended that the assessment be completed quarterly (unless indicated as annual), and more frequently when warranted (chronic symptoms, seasonal changes, etc.).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assessment Sections -->
+                <!-- Outdoor Air Quality -->
+                <div class="assessment-card" id="outdoor-air">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-cloud category-icon"></i>
+                        <span>Outdoor Air Quality</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Question 1 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                1. Is the exterior environment free from smoke and strong odors?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-1">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/wildfire-smoke-and-indoor-air-quality-schools-and-commercial-buildings" target="_blank">Wildfire and Indoor Air Quality in Schools and Commercial Buildings (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.cdc.gov/air/wildfire-smoke/default.htm" target="_blank">Protect Yourself from Wildfire Smoke (CDC)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.health.ny.gov/environmental/indoors/air/odors.htm" target="_blank">Workplace Odors & Health (New York Department of Health)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 2 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                2. Do staff check the Air Quality Index (AQI) prior to taking children outside?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-2">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/wildfire-smoke-course/wildfire-smoke-and-your-patients-health-air-quality-index" target="_blank">Wildfire Smoke and Your Patient's Health: The Air Quality Index (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.airnow.gov/sites/default/files/2018-04/aqi_brochure_02_14_0.pdf" target="_blank">AQI: A Guide to Air Quality and Your Health (PDF) (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.lung.org/clean-air/outdoors/air-quality-index" target="_blank">Air Quality Index: Using Air Quality Information to Protect Yourself from Outdoor Air Pollution (American Lung Association)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.airnow.gov/air-quality-flag-program/" target="_blank">EPA Air Quality Flag Program</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 3 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                3. Are windows facing areas of high vehicular activity closed during peak traffic hours?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-3">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/schools/best-practices-reducing-near-road-pollution-exposure-schools" target="_blank">Best Practices for Reducing Near-Road Pollution Exposure at Schools (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 4 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                4. Are you following your local regulations pertaining to idling of vehicles?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-4">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.cdllife.com/2018/idling-laws-state/" target="_blank">Idling Laws by State (CDLLife)</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Indoor Air Quality Section -->
+                <div class="assessment-card" id="indoor-air">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fas fa-home category-icon"></i>
+                        <span>Indoor Air Quality</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <!-- Question 5 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                5. Is the interior free of substances (ex. deodorizers, air fresheners, perfume, etc.) that might trigger asthma, respiratory or scent sensitivity concerns?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-5">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/childcare/resources-about-indoor-air-quality-child-care-providers" target="_blank">Resources about Indoor Air Quality for Child Care Providers (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/sites/default/files/2014-08/documents/child_care_facilities_0.pdf" target="_blank">Indoor Air Quality Issues for Child Care Facilities (PDF)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.atsdr.cdc.gov/odors/faqs.html" target="_blank">Environmental Odors FAQs (ATSDR)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/iaq-schools" target="_blank">EPA Indoor Air Quality Tools for Schools (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 6 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                6. Is there a written policy that prohibits smoking and tobacco use on the premises and is it enforced? (Conduct Annually)
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-6">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.azdhs.gov/documents/prevention/tobacco-chronic-disease/tobacco-free-living/smoke-free-sample-policy.pdf" target="_blank">Smoke-free Environment Sample Policy #1 (PDF) (Arizona Department of Health Services)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.publichealthlawcenter.org/sites/default/files/resources/tclc-fs-smokefree-childcare-2015.pdf" target="_blank">Smoke-Free Child Care: A Policy Overview (PDF) (Public Health Law Centre)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 7 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                7. Is there a policy that addresses secondhand and thirdhand smoke? (Conduct Annually)
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-7">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.cdc.gov/tobacco/secondhand-smoke/health.html" target="_blank">Health Problems Caused by Secondhand Smoke (CDC)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.learningonfamily.com/thirdhand-smoke-at-home-or-in-daycare-is-your-child-safe-from-this-health-hazard/" target="_blank">Thirdhand Smoke At Home or in Daycare, is Your Child Safe From This Health Hazard? (LearningOn Family)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.9.12" target="_blank">Health Protection in Child Care: Tobacco and Drug Use (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 8 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                8. For floor drains and plumbing traps, have infrequently used drains been observed and filled with water regularly to help prevent sewer gas smell?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-8">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://ehs.princeton.edu/news/knowledgebase/funky-smell-it-might-be-dry-drain" target="_blank">Funky Smell? It Might Be a Dry Drain (Princeton University Environmental Health and Safety)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.9.8" target="_blank">Sewage and Garbage (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 9 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                9. Are gas-powered and open flame heating systems properly vented (to the outside or combustion air)?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-9">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.1.2" target="_blank">Ensuring Access to Fresh Air Indoors (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/power-outages-and-indoor-air-quality-iaq" target="_blank">Power Outages and Indoor Air Quality (IAQ) (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 10 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                10. Are Carbon Monoxide detectors or monitoring systems in use as recommended (where there is gas-powered appliance, equipment, or combustible fuel)?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-10">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.9.4" target="_blank">Carbon Monoxide Detectors (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.safekids.org/safetytips/field_risks/carbon-monoxide" target="_blank">Carbon Monoxide (Safe Kids Worldwide)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/what-carbon-monoxide" target="_blank">Carbon Monoxide's Impact on Indoor Air Quality (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 11 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                11. Has carbon monoxide detector or monitoring system been checked at minimum monthly for working condition and as recommended by NFPA 72?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-11">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.nfpa.org/codes-and-standards/all-codes-and-standards/list-of-codes-and-standards/detail?code=72" target="_blank">Carbon Monoxide Alarm Information (National Fire Prevention Association)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.leecompany.com/lee-news/why-you-need-to-check-your-smoke-and-carbon-monoxide-detectors-monthly/" target="_blank">Why You Need to Check Your Smoke and Carbon Monoxide Detectors Monthly (Lee Company)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/where-should-i-place-carbon-monoxide-detector" target="_blank">Where Should I Place a Carbon Monoxide Detector? (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 12 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                12. Have the air filters been changed as recommended (minimum every 3 months but more frequently based on occupancy and outdoor air quality)?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-12">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.thisoldhouse.com/heating-cooling/21015044/how-often-to-change-air-filter" target="_blank">How Often You Should Change Your Air Filter (This Old House)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.1.2" target="_blank">Ensuring Access to Fresh Air Indoors (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 13 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                13. Have you tested for the following contaminants? (If children or staff experience chronic symptoms such as: dryness/irritation of the eyes, nose, throat and skin, headache, fatigue, shortness of breath, hypersensitivity and allergies, sinus congestion, coughing, sneezing, dizziness and nausea)
+                            </div>
+                            <div class="question-text">
+                                a. Biological: mold, dander, pollen, dust mites, bacteria<br>
+                                b. Chemical: Volatile Organic Compounds (VOCs), (ex. formaldehyde), lead, radon and carbon dioxide<br>
+                                c. Combustion: carbon monoxide, tobacco smoke
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-13">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/biological-pollutants-impact-indoor-air-quality" target="_blank">Biological Pollutants' Impact on Indoor Air Quality (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/mold/mold-and-indoor-air-quality-schools" target="_blank">Mold and Indoor Air Quality in Schools (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://molekule.science/indoor-air-quality-testing/" target="_blank">The Ultimate Guide to Indoor Air Quality Testing (Molekule)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://nrckids.org/CFOC/Database/5.2.9.11" target="_blank">Testing for and Remediating Lead Hazards (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 14 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                14. If testing was conducted, were recommendations implemented and documented?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-14">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/iaq-schools/indoor-air-quality-tools-schools-action-kit" target="_blank">Indoor Air Quality Tools for Schools Action Kit (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.cdc.gov/nceh/ehs/docs/ieq_fact_sheet.pdf" target="_blank">Indoor Environmental Quality Fact Sheet (CDC)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 15 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                15. Have you tested for VOCs after renovation, remodeling, new building construction or installation of new equipment, furniture, carpet or paint?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-15">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/volatile-organic-compounds-impact-indoor-air-quality" target="_blank">Remodeling and Volatile Organic Compounds (VOCs) (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/indoor-air-quality-iaq/volatile-organic-compounds-impact-indoor-air-quality" target="_blank">Volatile Organic Compounds' Impact on Indoor Air Quality (EPA)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/sites/default/files/2014-08/documents/sick_building_factsheet.pdf" target="_blank">Indoor Air Facts No. 4: Sick Building Syndrome (pdf) (EPA)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 16 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                16. Has an Heating, Ventilation, and Air Conditioning (HVAC) professional tested your exhaust ventilation for adequate performance in limiting odors and moisture (i.e. rest rooms, janitor closets, kitchens and equipment rooms)?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                            <div class="resources-container" id="resources-16">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.nachi.org/bathroom-exhaust-fans.htm" target="_blank">Bathroom Ventilation Ducts and Fans (International Association of Certified Home Inspectors)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Question 17 -->
+                        <div class="question-item">
+                            <div class="question-text">
+                                17. Is the interior free of physical signs of mold or moisture damage (i.e. odors, leaks, condensation, wet drywall, wood, stained ceiling tiles, or other affected building material; in dark areas such as closets, etc.)?
+                            </div>
+                            <div class="response-options">
+                                <button class="btn btn-response btn-yes">Yes</button>
+                                <button class="btn btn-response btn-no">No</button>
+                                <button class="btn btn-response btn-na">N/A</button>
+                            </div>
+                           
+                                    
+                            <div class="resources-container" id="resources-17">
+                                <h6>Resources:</h6>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.aiha.org/public-resources/consumer-resources/consumer-resources-pages/facts-about-mold" target="_blank">Facts About Mold: A Consumer Focus (pdf) (American Industrial Hygiene Association)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.cdc.gov/mold/faqs.htm" target="_blank">Basic Facts About Mold and Dampness (CDC)</a>
+                                </div>
+                                <div class="resource-item">
+                                    <i class="fas fa-external-link-alt me-2"></i>
+                                    <a href="https://www.epa.gov/sites/default/files/2016-10/documents/moldguide12.pdf" target="_blank">A Brief Guide to Mold, Moisture, and Your Home (pdf) (EPA)</a>
+                                </div>
+                            </div>
+                            </div>
+                            
+                            <!-- Question 18 -->
+                            <div class="question-item">
+                                <div class="question-text">
+                                    18. Is the program free of excessive absenteeism as a result of sinus infections, asthma, allergies or other respiratory concerns?
+                                </div>
+                                <div class="response-options">
+                                    <button class="btn btn-response btn-yes">Yes</button>
+                                    <button class="btn btn-response btn-no">No</button>
+                                    <button class="btn btn-response btn-na">N/A</button>
+                                </div>
+                                <div class="resources-container" id="resources-18">
+                                    <h6>Resources:</h6>
+                                    <div class="resource-item">
+                                        <i class="fas fa-external-link-alt me-2"></i>
+                                        <a href="https://www.epa.gov/mold/introduction-mold" target="_blank">Introduction to Molds (EPA)</a>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+                            
+                            <!-- Pest Management Section -->
+                            <div class="assessment-card" id="pest-management">
+                                <div class="card-header d-flex align-items-center">
+                                    <i class="fas fa-bug category-icon"></i>
+                                    <span>Pest Management</span>
+                                </div>
+                                <div class="card-body p-0">
+                                    <!-- Question 32 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            32. Is the environment free of evidence identifying vermin infestation (i.e. droppings, chewed areas, holes, etc.)?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-32">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/rodenticides/identify-and-prevent-rodent-infestations" target="_blank">Identify and Prevent Rodent Infestations (EPA)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/safepestcontrol/dos-and-donts-pest-control" target="_blank">Do's and Don'ts of Pest Control (EPA)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 33 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            33. Is there an integrated pest management program in place?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-33">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/sites/default/files/2014-01/documents/ipm_curriculum.pdf" target="_blank">Integrated Pest Management in Child Care Centers: Protecting our Children from Pests and Pesticides (pdf) (EPA)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://nrckids.org/CFOC/Database/5.2.9.13" target="_blank">Integrated Pest Management (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 34 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            34. When facility is being treated for pests is the building empty of occupants?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-34">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="http://npic.orst.edu/health/child.html" target="_blank">Pesticides and Children (National Pesticide Information Center)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 35 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            35. Is the procedure for re-entry following pest management services known and implemented?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-35">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://nrckids.org/CFOC/Database/5.2.9.13" target="_blank">Integrated Pest Management (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 36 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            36. Is the facility free of commercially available pesticides (ex. bug spray)?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-36">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/safepestcontrol/storing-pesticides-safely" target="_blank">Storing Pesticides Safely (EPA)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://extension.psu.edu/what-you-need-to-know-about-storing-a-pesticide" target="_blank">What You Need to Know about Storing a Pesticide (Penn State Extension)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 37 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            37. Are exterior areas accessible to children free of large growths of undesirable or toxic plants?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-37">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://poisonhelp.hrsa.gov/poisonous-plants" target="_blank">Even Plants Can Be Poisonous (U.S. Department of Health & Human Services)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Chemical Safety Section -->
+                            <div class="assessment-card" id="chemical-safety">
+                                <div class="card-header d-flex align-items-center">
+                                    <i class="fas fa-flask category-icon"></i>
+                                    <span>Chemical Safety</span>
+                                </div>
+                                <div class="card-body p-0">
+                                    <!-- Question 38 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            38. Are cleaning and disinfecting products securely stored in approved locations?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-38">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Poison-Prevention.aspx" target="_blank">Poison Prevention & Treatment Tips for Parents (American Academy of Pediatrics)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.healthychildren.org/English/safety-prevention/at-home/Pages/Childproofing-Your-Home-for-Poisons.aspx" target="_blank">Childproofing Your Home for Poisons (American Academy of Pediatrics)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://nrckids.org/CFOC/Database/5.2.9.10" target="_blank">Use and Storage of Toxic Substances (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.hud.gov/sites/documents/DOC_11823.PDF" target="_blank">Poisoning Prevention Home Safety Tip Sheet (U.S. Department of Health & Human Services)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 39 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            39. Is there a listing of approved chemicals and/or products to be used in the facility?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-39">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/greenerproducts/resources-about-green-cleaning-child-care-providers" target="_blank">Resources about Green Cleaning for Child Care Providers (EPA)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.epa.gov/saferchoice/why-choose-safer" target="_blank">Why Choose Safer Cleaning Products (EPA)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://cehn.org/wp-content/uploads/2015/12/Household_Chemicals_Fact_Sheet.pdf" target="_blank">Household Chemicals Fact Sheet (Children's Environmental Health Network)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 40 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            40. Do staff refrain from using cleaning and disinfecting products when children are present?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-40">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://nrckids.org/CFOC/Database/3.3.1.1" target="_blank">Routine Cleaning, Sanitizing, and Disinfecting (National Resource Center for Health and Safety in Child Care and Early Education)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://osse.dc.gov/sites/default/files/dc/sites/osse/publication/attachments/Supplementary%20Guidance%20for%20Cleaning%20Sanitizing%20and%20Disinfecting%20Child%20Care%20Facilities.pdf" target="_blank">Supplementary Guidance for Cleaning, Sanitizing, and Disinfecting Child Care Facilities (pdf) (District of Columbia Office of the State Superintendent of Education)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://ucsfchildcarehealth.org/pdfs/healthandsafety/greencleaning_toolkit.pdf" target="_blank">Green Cleaning, Sanitizing, and Disinfecting: A Toolkit for Early Care and Education (University of California, San Francisco)</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://extension.psu.edu/programs/betterkidcare/lessons/green-cleaning" target="_blank">Green Cleaning, Sanitizing, and Disinfecting: A Curriculum for ECE (Penn State Extension)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 41 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            41. Do staff refrain from utilizing aerosols (perfumes, air fresheners, deodorizers, and other scented products)?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-41">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://cehn.org/our-work/eco-healthy-child-care/ehcc-faqs/fragrances/" target="_blank">FAQs: Fragrances - Children's Environmental Health Network</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.naeyc.org/resources/pubs/tyc/dec2019/creating-eco-friendly-healthy-learning-environments" target="_blank">Let's Clear the Air: Creating Eco-Friendly, Healthy Learning Environments - National Association for the Education of Young Children</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.nj.gov/health/eoh/rtkweb/documents/fs/0096.pdf" target="_blank">Air Fresheners – What You Need to Know (pdf) - New Jersey Department of Health</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Question 42 -->
+                                    <div class="question-item">
+                                        <div class="question-text">
+                                            42. Are safety data sheets on all approved products (ex. window cleaners, toilet cleaners, etc.) updated based on product use and readily accessible in case of emergency?
+                                        </div>
+                                        <div class="response-options">
+                                            <button class="btn btn-response btn-yes">Yes</button>
+                                            <button class="btn btn-response btn-no">No</button>
+                                            <button class="btn btn-response btn-na">N/A</button>
+                                        </div>
+                                        <div class="resources-container" id="resources-42">
+                                            <h6>Resources:</h6>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://nrckids.org/CFOC/Database/5.2.9.10" target="_blank">Use and Storage of Toxic Substances - National Resource Center for Health and Safety in Child Care and Early Education</a>
+                                            </div>
+                                            <div class="resource-item">
+                                                <i class="fas fa-external-link-alt me-2"></i>
+                                                <a href="https://www.healthychildcare.org/Are-You-Using-Your-Cleaning-Products-Correctly.html" target="_blank">Are You Using Your Cleaning Products Correctly? - Healthy Child Care</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Submit Button -->
+                            <div class="d-grid gap-2 mt-4">
+                                <button class="btn btn-primary btn-lg">
+                                    <i class="fas fa-check-circle me-2"></i>Submit Assessment
+                                </button>
+                            </div>
+                            </div>
+                            
+                            <!-- Progress Sidebar -->
+                            <div class="col-lg-4">
+                                <div class="progress-container">
+                                    <h5 class="progress-title">
+                                        <i class="fas fa-chart-line me-2"></i>Assessment Progress
+                                    </h5>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <div class="progress-stats d-flex justify-content-between">
+                                        <span>25% Complete</span>
+                                        <span>5/20 Questions</span>
+                                    </div>
+                                    
+                                    <h5 class="progress-title mt-4">
+                                        <i class="fas fa-clipboard-check me-2"></i>Summary
+                                    </h5>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>Yes</span>
+                                            <span>3</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>No</span>
+                                            <span>1</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>N/A</span>
+                                            <span>1</span>
+                                        </div>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-secondary" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <h5 class="progress-title mt-4">
+                                        <i class="fas fa-bookmark me-2"></i>Quick Links
+                                    </h5>
+                                    <div class="list-group">
+                                        <a href="#outdoor-air" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-cloud me-2"></i>Outdoor Air Quality
+                                        </a>
+                                        <a href="#indoor-air" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-home me-2"></i>Indoor Air Quality
+                                        </a>
+                                        <a href="#pest-management" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-bug me-2"></i>Pest Management
+                                        </a>
+                                        <a href="#chemical-safety" class="list-group-item list-group-item-action">
+                                            <i class="fas fa-flask me-2"></i>Chemical Safety
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            </div>
+
+
+                            <!-- Add this section after the main assessment container -->
+<section class="quick-reference mt-5" id="quick-reference">
+    <div class="container">
+        <!-- Quick Reference Header -->
+        <div class="assessment-card mb-4">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-book-medical category-icon"></i>
+                <span>Asthma Care Quick Reference</span>
+            </div>
+            <div class="card-body">
+                <!-- Download Button -->
+                <div class="text-center mb-4">
+                    <a href="https://pdfhost.io/v/5ErxGmw4Ws_asthma_qrg" class="btn btn-primary" target="_blank">
+    <i class="fas fa-file-pdf me-2"></i>Download Full Guide
+</a>
+
+
+                </div>
+
+                <!-- Accordion -->
+                <div class="accordion" id="quickRefAccordion">
+                    <!-- Diagnosis Section -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#diagnosis">
+                                <i class="fas fa-stethoscope me-3"></i>Diagnosing Asthma
+                            </button>
+                        </h2>
+                        <div id="diagnosis" class="accordion-collapse collapse show" data-bs-parent="#quickRefAccordion">
+                            <div class="accordion-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Check for recurrent symptoms: cough, wheezing, chest tightness
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Perform spirometry for patients ≥5 years
+                                    </li>
+                                    <li class="list-group-item">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Consider environmental triggers and medical history
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Management Section -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#management">
+                                <i class="fas fa-clipboard-list me-3"></i>Long-Term Management
+                            </button>
+                        </h2>
+                        <div id="management" class="accordion-collapse collapse" data-bs-parent="#quickRefAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-shield-alt me-2"></i>Reduce Impairment</h6>
+                                        <ul>
+                                            <li>Prevent chronic symptoms</li>
+                                            <li>Maintain normal activity levels</li>
+                                            <li>Minimize SABA use</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-exclamation-triangle me-2"></i>Reduce Risk</h6>
+                                        <ul>
+                                            <li>Prevent exacerbations</li>
+                                            <li>Preserve lung function</li>
+                                            <li>Minimize medication side effects</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medication Section -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#medication">
+                                <i class="fas fa-prescription me-3"></i>Medication Guide
+                            </button>
+                        </h2>
+                        <div id="medication" class="accordion-collapse collapse" data-bs-parent="#quickRefAccordion">
+                            <div class="accordion-body">
+                                <div class="alert alert-info">
+                                    <strong>Key Medications:</strong>
+                                    <ul class="mt-2">
+                                        <li>ICS (Preferred long-term control)</li>
+                                        <li>SABA (Quick relief)</li>
+                                        <li>LABA (Combination therapy)</li>
+                                    </ul>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-tablets me-2"></i>Dosage Guidelines</h6>
+                                        <p>Follow stepwise approach based on severity:<br>
+                                        <a href="#stepwise" class="badge bg-primary">View Stepwise Chart</a></p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6><i class="fas fa-exclamation-circle me-2"></i>Safety Notes</h6>
+                                        <ul>
+                                            <li>Monitor growth in children</li>
+                                            <li>Check inhaler technique</li>
+                                            <li>Watch for oral thrush</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- External Link -->
+                <div class="mt-4 text-center">
+                    <a href="https://www.nhlbi.nih.gov/guidelines/asthma" target="_blank" class="btn btn-outline-secondary">
+                        <i class="fas fa-external-link-alt me-2"></i>Full NHLBI Guidelines
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Asthma Quick Reference Section -->
+<section class="quick-reference mt-5" id="quick-reference">
+    <div class="container">
+        <div class="assessment-card">
+            <div class="card-header d-flex align-items-center">
+                <i class="fas fa-book-medical category-icon"></i>
+                <span>Asthma Care Quick Reference</span>
+            </div>
+            <div class="card-body">
+                <!-- Download Button -->
+                <div class="text-center mb-4">
+                    <a href="https://pdfhost.io/v/5ErxGmw4Ws_asthma_qrg" class="btn btn-primary btn-lg" target="_blank">
+    <i class="fas fa-file-pdf me-2"></i>Download Full Guide
+</a>
+
+                </div>
+
+                <!-- Accordion -->
+                <div class="accordion" id="asthmaAccordion">
+                    <!-- Diagnosis -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#diagnosisSection" aria-expanded="true">
+                                <i class="fas fa-stethoscope me-3"></i>Diagnosis & Assessment
+                            </button>
+                        </h2>
+                        <div id="diagnosisSection" class="accordion-collapse collapse show" 
+                             data-bs-parent="#asthmaAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary mb-3">
+                                            <i class="fas fa-check-circle me-2"></i>Key Indicators
+                                        </h6>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">• Recurrent cough/wheezing</li>
+                                            <li class="mb-2">• Nighttime symptoms</li>
+                                            <li class="mb-2">• Exercise-induced symptoms</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary mb-3">
+                                            <i class="fas fa-chart-line me-2"></i>Testing
+                                        </h6>
+                                        <ul class="list-unstyled">
+                                            <li class="mb-2">• Spirometry for ≥5 years</li>
+                                            <li class="mb-2">• Symptom frequency assessment</li>
+                                            <li class="mb-2">• Environmental trigger evaluation</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Management -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#managementSection">
+                                <i class="fas fa-clipboard-check me-3"></i>Management Strategy
+                            </button>
+                        </h2>
+                        <div id="managementSection" class="accordion-collapse collapse" 
+                             data-bs-parent="#asthmaAccordion">
+                            <div class="accordion-body">
+                                <div class="alert alert-info">
+                                    <h6 class="alert-heading">
+                                        <i class="fas fa-bullseye me-2"></i>Control Goals
+                                    </h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <span class="badge bg-success me-2">Reduce Impairment</span>
+                                            <ul class="mt-2">
+                                                <li>Minimize daily symptoms</li>
+                                                <li>Maintain normal activity</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span class="badge bg-warning me-2">Reduce Risk</span>
+                                            <ul class="mt-2">
+                                                <li>Prevent exacerbations</li>
+                                                <li>Preserve lung function</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6 class="text-primary mt-3">
+                                    <i class="fas fa-prescription me-2"></i>Medication Approach
+                                </h6>
+                                <div class="row">
+                                    <div class="col-md-4 text-center">
+                                        <div class="p-3 border rounded">
+                                            <small class="text-muted">Quick Relief</small>
+                                            <h5 class="text-success">SABA</h5>
+                                            <small>Albuterol</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <div class="p-3 border rounded">
+                                            <small class="text-muted">Maintenance</small>
+                                            <h5 class="text-primary">ICS</h5>
+                                            <small>Inhaled Corticosteroids</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 text-center">
+                                        <div class="p-3 border rounded">
+                                            <small class="text-muted">Combination</small>
+                                            <h5 class="text-info">LABA + ICS</h5>
+                                            <small>Long-term control</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Plan -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#actionPlanSection">
+                                <i class="fas fa-file-medical me-3"></i>Action Plan
+                            </button>
+                        </h2>
+                        <div id="actionPlanSection" class="accordion-collapse collapse" 
+                             data-bs-parent="#asthmaAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">
+                                            <i class="fas fa-flag me-2"></i>Key Components
+                                        </h6>
+                                        <ul>
+                                            <li>Daily management steps</li>
+                                            <li>Exacerbation recognition</li>
+                                            <li>Medication adjustments</li>
+                                            <li>Emergency contacts</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="alert alert-warning">
+                                            <h6 class="alert-heading">
+                                                <i class="fas fa-exclamation-triangle me-2"></i>Important
+                                            </h6>
+                                            <p>Review plan at every visit<br>
+                                            Update with seasonal changes</p>
+                                            <a href="https://www.nhlbi.nih.gov/health-topics/asthma-management-guidelines" 
+                                               class="btn btn-sm btn-outline-primary mt-2">
+                                                Download Template
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- External Resources -->
+                <div class="mt-4 text-center">
+                    <a href="https://www.nhlbi.nih.gov/guidelines/asthma" 
+                       class="btn btn-outline-secondary" 
+                       target="_blank">
+                        <i class="fas fa-external-link-alt me-2"></i>Full NHLBI Guidelines
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+                            <!-- Add this section where you want the videos to appear in your existing HTML -->
+<!-- Compact Asthma Video Series -->
+<!-- Video Section HTML -->
+<!-- Add this right after the main assessment section -->
+<!-- Video Section -->
+<!-- Video Series Section -->
+
+<section class="video-series-section" id="video">
+  <div class="container">
+    <h2 class="text-center mb-5">Asthma Prevention Video Series</h2>
+
+    <!-- Video List -->
+    <div class="video-list" style="display: flex; flex-wrap: wrap; gap: 40px; justify-content: center;">
+
+      <!-- Part 1 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/n90aLNDbwso" 
+          title="Part 1: Outdoor Air Quality" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 1: Outdoor Air Quality</h3>
+        <p>Understanding outdoor asthma triggers and prevention strategies</p>
+      </div>
+
+      <!-- Part 2 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/fYKxLnGr9M8" 
+          title="Part 2: Indoor Environments" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 2: Indoor Environments</h3>
+        <p>Managing indoor air quality and common household triggers</p>
+      </div>
+
+      <!-- Part 3 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/HFvSZGrBFTc" 
+          title="Part 3: Pest Management" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 3: Pest Management</h3>
+        <p>Reducing asthma risks from pests and pesticides</p>
+      </div>
+
+      <!-- Part 4 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/hwrdY7hfuTc" 
+          title="Part 4: Cleaning Practices" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 4: Cleaning Practices</h3>
+        <p>Safe cleaning methods to minimize respiratory irritation</p>
+      </div>
+
+      <!-- Part 5 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/WNmbK813Ag8" 
+          title="Part 5: HVAC Maintenance" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 5: HVAC Maintenance</h3>
+        <p>Proper ventilation system care for asthma prevention</p>
+      </div>
+
+      <!-- Part 6 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/cssobv7fkrA" 
+          title="Part 6: Emergency Preparedness" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 6: Emergency Preparedness</h3>
+        <p>Creating an asthma action plan for childcare facilities</p>
+      </div>
+
+      <!-- Part 7 -->
+      <div class="video-card" style="max-width: 360px; text-align: center;">
+        <iframe width="100%" height="215" src="https://www.youtube.com/embed/VeizGTU1gPs" 
+          title="Part 7: Staff Training" frameborder="0" allowfullscreen></iframe>
+        <h3>Part 7: Staff Training</h3>
+        <p>Educating caregivers on asthma management best practices</p>
+      </div>
+
+    </div>
+
+    <!-- Section Footer -->
+    <div class="series-footer text-center mt-5" style="margin-top: 60px;">
+      <div class="branding">
+        <h4 class="brand-name">ILLUMINATI ASTHMA TRIGGERS</h4>
+        <p class="thank-you">Thank You For Caring and Watching!!</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+                            
+                            <!-- Footer -->
+                            <footer class="footer" id="contact">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-4 mb-4 mb-md-0">
+                                            <h5 class="footer-title">Healthy Child Care</h5>
+                                            <p>Providing resources and tools to create safe, healthy learning environments for children.</p>
+                                            <div class="mt-3">
+                                                <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                                                <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                                                <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                                                <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mb-4 mb-md-0">
+                                            <h5 class="footer-title">Resources</h5>
+                                            <div class="footer-links">
+                                                <a href="#">Toolkits</a>
+                                                <a href="#">Guidelines</a>
+                                                <a href="#">Research</a>
+                                                <a href="#">Videos</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mb-4 mb-md-0">
+                                            <h5 class="footer-title">Assessments</h5>
+                                            <div class="footer-links">
+                                                <a href="#outdoor-air">Air Quality</a>
+                                                <a href="#pest-management">Pest Management</a>
+                                                <a href="#">Safety</a>
+                                                <a href="#assessment">Full Assessment</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 mb-4 mb-md-0" id="about">
+                                            <h5 class="footer-title">About</h5>
+                                            <div class="footer-links">
+                                                <a href="#">Our Mission</a>
+                                                <a href="#">Partners</a>
+                                                <a href="#">Team</a>
+                                                <a href="#contact">Contact</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <h5 class="footer-title">Support</h5>
+                                            <div class="footer-links">
+                                                <a href="#">FAQ</a>
+                                                <a href="#">Help Center</a>
+                                                <a href="#">Feedback</a>
+                                                <a href="#">Training</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+                                    <div class="text-center">
+                                        <p class="mb-0">© 2023 Healthy Child Care Initiative. All rights reserved.</p>
+                                    </div>
+                                </div>
+                            </footer>
+                            
+                            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                            <script>
+                                // Toggle response buttons
+                                document.querySelectorAll('.btn-response').forEach(button => {
+                                    button.addEventListener('click', function() {
+                                        // Remove active class from siblings
+                                        this.parentNode.querySelectorAll('.btn-response').forEach(btn => {
+                                            btn.classList.remove('active');
+                                        });
+                                        
+                                        // Add active class to clicked button
+                                        this.classList.add('active');
+                                        
+                                        // Show resources if "No" was selected
+                                        const questionItem = this.closest('.question-item');
+                                        const resourcesContainer = questionItem.querySelector('.resources-container');
+                                        
+                                        if (this.classList.contains('btn-no')) {
+                                            resourcesContainer.style.display = 'block';
+                                        } else {
+                                            resourcesContainer.style.display = 'none';
+                                        }
+                                        
+                                        // Update progress (this would be more sophisticated in a real app)
+                                        updateProgress();
+                                    });
+                                });
+                                
+                                function updateProgress() {
+                                    // This would calculate actual progress in a real application
+                                    const totalQuestions = document.querySelectorAll('.question-item').length;
+                                    const answeredQuestions = document.querySelectorAll('.btn-response.active').length;
+                                    const progressPercent = Math.round((answeredQuestions / totalQuestions) * 100);
+                                    
+                                    document.querySelector('.progress-bar').style.width = progressPercent + '%';
+                                    document.querySelector('.progress-bar').setAttribute('aria-valuenow', progressPercent);
+                                    document.querySelector('.progress-stats span:first-child').textContent = progressPercent + '% Complete';
+                                    document.querySelector('.progress-stats span:last-child').textContent = answeredQuestions + '/' + totalQuestions + ' Questions';
+                                }
+                            </script>
+                            </body>
+                            </html>
